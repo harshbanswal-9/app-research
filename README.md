@@ -22,9 +22,9 @@ repeatable:
 - **Every fact is traceable.** Each field, label, rule and workflow step cites a source
   id that maps to a URL, plus a page, section or timestamp. A reviewer can check it in
   seconds. Nothing comes from memory or "apps like this usually...".
-- **Wrong-edition docs are caught.** Vendors ship several products under one brand (UKG
-  Pro, UKG Ready and Workforce Central; Salesforce Classic and Lightning). A doc for the wrong one
-  looks right and quietly breaks your build. The skill fixes the edition first and rejects
+- **Wrong-edition docs are caught.** Vendors often ship several products or versions
+  under one brand (e.g. UKG Pro vs UKG Ready, Salesforce Classic vs Lightning). A doc for
+  the wrong one looks right and quietly breaks your build. The skill fixes the edition first and rejects
   sources that don't match, with the reason recorded.
 - **Gaps are said out loud.** Anything no source shows becomes a gap with *why* it's
   missing and the *next action* that would fill it: a search to try, a page that needs a
@@ -38,8 +38,8 @@ repeatable:
   internet covers, per component, before you commit to building it.
 - **It can resume.** Long research runs can stop and pick up where they left off.
 
-In side-by-side tests on three apps (UKG Pro W-4 and direct deposit, ServiceNow
-incidents, Calendly), runs with the skill passed 4 of 5 quality checks and runs without it
+In side-by-side tests on three different apps (an HR/payroll app, an IT service desk and a
+scheduling app), runs with the skill passed 4 of 5 quality checks and runs without it
 passed 2 of 5. The main differences were traceable sources and gap lists you can act on.
 It costs about 1.5× the tokens of a plain research prompt.
 
@@ -67,15 +67,25 @@ Run it from the project folder where you want the pack (it goes in `research/<ap
 or in the project's existing research folder if there is one).
 
 ```text
-/app-research UKG Pro: S13 Income Tax & W-4, S15 Emergency Contacts
-/app-research ServiceNow ITSM (current release): incident form, states, resolve/close workflow
-/app-research Calendly web app, entire app, desktop
+/app-research <app name> <edition>: <component>, <component>
+/app-research <app name> <edition/release>: <feature, its screens, states and workflow>
+/app-research <app name>, entire app, desktop
 /app-research resume the research
-/app-research what's left to research for S13?
+/app-research what's left to research for <component>?
 ```
 
-You can also just describe what you need ("find everything public about Workday's time-off
-request flow") and Claude will use the skill.
+For example:
+
+| Pattern | Example |
+|---|---|
+| Specific components | `/app-research <app> <edition>: <component>, <component>` (e.g. UKG Pro: Income Tax & W-4, Emergency Contacts) |
+| One feature in depth | `/app-research <app> <release>: <feature details>` (e.g. ServiceNow ITSM, current release: incident form, states, resolve/close workflow) |
+| Whole app | `/app-research <app>, entire app` (e.g. Calendly web app, entire app, desktop) |
+| Continue | `/app-research resume the research` |
+| What's missing | `/app-research what's left to research for <component>?` (e.g. Direct Deposit) |
+
+You can also just describe what you need ("find everything public about <app>'s
+<feature> flow", e.g. Workday's time-off request flow) and Claude will use the skill.
 
 ### What happens
 
@@ -119,11 +129,11 @@ Facts are cited as `[src:src-007 p.14]` or `[src:src-012@03:12]`.
 
 ## Tips
 
-- **Name the edition precisely** ("UKG Pro", not "UKG"). That one word decides which
+- **Name the edition precisely** (e.g. "UKG Pro", not "UKG"). That one word decides which
   sources get rejected.
 - **Give it a requirement list** if you have one. Coverage is scored against it, and
-  small, specific items ("W-4 Step 4 fields") give a more honest score than broad ones
-  ("W-4 workflow").
+  small, specific items (e.g. "W-4 Step 4 fields") give a more honest score than broad
+  ones (e.g. "W-4 workflow").
 - **Lower the budget in the intake** for a quick look, and raise it for a full app. A run
   on one or two components costs about 100k–200k tokens; a whole app costs more.
 - **Hand gaps to seemly-video.** When the gap list says "record this flow", the
