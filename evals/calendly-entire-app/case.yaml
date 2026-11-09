@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: calendly-entire-app
+expected_outcome: |
+  A research pack for the whole Calendly web app: a module map from the vendor's help center, sourced evidence per module, a source log, and a gap report.

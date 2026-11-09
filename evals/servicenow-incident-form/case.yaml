@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: servicenow-incident-form
+expected_outcome: |
+  A research pack on the ServiceNow incident form with sourced fields, state model and resolve/close workflow, a source log, and a coverage and gap report.

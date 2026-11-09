@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: ukg-pro-w4-direct-deposit
+expected_outcome: |
+  A research pack for UKG Pro S13 with sourced evidence on Income Tax/W-4 and Direct Deposit screens, fields, workflow and rules, wrong-edition sources rejected, and a gap list with next actions.
